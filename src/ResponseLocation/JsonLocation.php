@@ -12,16 +12,16 @@ use GuzzleHttp\Command\Guzzle\GuzzleCommandInterface;
 class JsonLocation extends AbstractLocation
 {
     /** @var array The JSON document being visited */
-    private $json = [];
+    private $json = array();
 
     public function before(
         GuzzleCommandInterface $command,
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
-        $this->json = $response->json() ?: [];
+        $this->json = $response->json() ?: array();
     }
 
     public function after(
@@ -29,7 +29,7 @@ class JsonLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         // Handle additional, undefined properties
         $additional = $model->getAdditionalProperties();
@@ -46,7 +46,7 @@ class JsonLocation extends AbstractLocation
             }
         }
 
-        $this->json = [];
+        $this->json = array();
     }
 
     public function visit(
@@ -54,7 +54,7 @@ class JsonLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $param,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         $name = $param->getName();
         $key = $param->getWireName();
@@ -87,7 +87,7 @@ class JsonLocation extends AbstractLocation
             return $param->filter($value);
         }
 
-        $result = [];
+        $result = array();
         $type = $param->getType();
 
         if ($type == 'array') {

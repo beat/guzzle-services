@@ -29,11 +29,11 @@ class PrepareRequest implements SubscriberInterface
     /**
      * @param RequestLocationInterface[] $requestLocations Extra request locations
      */
-    public function __construct(array $requestLocations = [])
+    public function __construct(array $requestLocations = array())
     {
         static $defaultRequestLocations;
         if (!$defaultRequestLocations) {
-            $defaultRequestLocations = [
+            $defaultRequestLocations = array(
                 'body'      => new BodyLocation('body'),
                 'query'     => new QueryLocation('query'),
                 'header'    => new HeaderLocation('header'),
@@ -41,7 +41,7 @@ class PrepareRequest implements SubscriberInterface
                 'xml'       => new XmlLocation('xml'),
                 'postField' => new PostFieldLocation('postField'),
                 'postFile'  => new PostFileLocation('postFile')
-            ];
+			);
         }
 
         $this->requestLocations = $requestLocations + $defaultRequestLocations;
@@ -49,7 +49,7 @@ class PrepareRequest implements SubscriberInterface
 
     public function getEvents()
     {
-        return ['prepare' => ['onPrepare']];
+        return array('prepare' => array('onPrepare'));
     }
 
     public function onPrepare(PrepareEvent $event)
@@ -81,8 +81,8 @@ class PrepareRequest implements SubscriberInterface
         GuzzleClientInterface $client,
         RequestInterface $request
     ) {
-        $visitedLocations = [];
-        $context = ['client' => $client, 'command' => $command];
+        $visitedLocations = array();
+        $context = array('client' => $client, 'command' => $command);
         $operation = $command->getOperation();
 
         // Visit each actual parameter
@@ -142,7 +142,7 @@ class PrepareRequest implements SubscriberInterface
             return $client->getHttpClient()->createRequest(
                 $operation->getHttpMethod(),
                 $client->getDescription()->getBaseUrl(),
-                $command['request_options'] ?: []
+                $command['request_options'] ?: array()
             );
         }
 
@@ -157,7 +157,7 @@ class PrepareRequest implements SubscriberInterface
         GuzzleClientInterface $client
     ) {
         // Get the path values and use the client config settings
-        $variables = [];
+        $variables = array();
         $operation = $command->getOperation();
         foreach ($operation->getParams() as $name => $arg) {
             /* @var Parameter $arg */
@@ -173,8 +173,8 @@ class PrepareRequest implements SubscriberInterface
 
         return $client->getHttpClient()->createRequest(
             $operation->getHttpMethod(),
-            [$client->getDescription()->getBaseUrl()->combine($operation->getUri()), $variables],
-            $command['request_options'] ?: []
+			array($client->getDescription()->getBaseUrl()->combine($operation->getUri()), $variables),
+            $command['request_options'] ?: array()
         );
     }
 }

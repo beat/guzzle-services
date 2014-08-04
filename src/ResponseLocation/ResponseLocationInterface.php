@@ -29,7 +29,7 @@ interface ResponseLocationInterface
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     );
 
     /**
@@ -47,7 +47,7 @@ interface ResponseLocationInterface
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     );
 
     /**
@@ -66,6 +66,6 @@ interface ResponseLocationInterface
         ResponseInterface $response,
         Parameter $param,
         &$result,
-        array $context = []
+        array $context = array()
     );
 }

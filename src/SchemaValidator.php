@@ -32,7 +32,7 @@ class SchemaValidator
 
     public function validate(Parameter $param, &$value)
     {
-        $this->errors = [];
+        $this->errors = array();
         $this->recursiveProcess($param, $value);
 
         if (empty($this->errors)) {
@@ -50,7 +50,7 @@ class SchemaValidator
      */
     public function getErrors()
     {
-        return $this->errors ?: [];
+        return $this->errors ?: array();
     }
 
     /**
@@ -106,7 +106,7 @@ class SchemaValidator
             } elseif ($value === null) {
                 // Attempt to let the contents be built up by default values if
                 // possible
-                $value = [];
+                $value = array();
                 $temporaryValue = $valueIsArray = $traverse = true;
             }
 
@@ -160,7 +160,8 @@ class SchemaValidator
                 // bubbled up, then we need to remote the value.
                 if ($temporaryValue && empty($value)) {
                     $value = null;
-                    $valueIsArray = false;
+					/** @noinspection PhpUnusedLocalVariableInspection */
+					$valueIsArray = false;
                 }
             }
 

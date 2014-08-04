@@ -16,7 +16,7 @@ class BodyLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $param,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         $result[$param->getName()] = $param->filter($response->getBody());
     }

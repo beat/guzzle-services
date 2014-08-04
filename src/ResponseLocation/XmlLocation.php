@@ -19,7 +19,7 @@ class XmlLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         $this->xml = $response->xml();
     }
@@ -29,7 +29,7 @@ class XmlLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         // Handle additional, undefined properties
         $additional = $model->getAdditionalProperties();
@@ -47,7 +47,7 @@ class XmlLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $param,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         $sentAs = $param->getWireName();
         $ns = null;
@@ -75,7 +75,7 @@ class XmlLocation extends AbstractLocation
         Parameter $param,
         \SimpleXMLElement $node
     ) {
-        $result = [];
+        $result = array();
         $type = $param->getType();
 
         if ($type == 'object') {
@@ -105,7 +105,7 @@ class XmlLocation extends AbstractLocation
         // Cast to an array if the value was a string, but should be an array
         $items = $param->getItems();
         $sentAs = $items->getWireName();
-        $result = [];
+        $result = array();
         $ns = null;
 
         if (strstr($sentAs, ':')) {
@@ -142,7 +142,7 @@ class XmlLocation extends AbstractLocation
      */
     private function processObject(Parameter $param, \SimpleXMLElement $node)
     {
-        $result = $knownProps = [];
+        $result = $knownProps = array();
 
         // Handle known properties
         if ($properties = $param->getProperties()) {
@@ -175,6 +175,7 @@ class XmlLocation extends AbstractLocation
         if ($additional instanceof Parameter) {
             // Process all child elements according to the given schema
             foreach ($node->children($additional->getData('xmlNs'), true) as $childNode) {
+				/** @var \SimpleXMLElement $childNode */
                 $sentAs = $childNode->getName();
                 if (!isset($knownProps[$sentAs])) {
                     $result[$sentAs] = $this->recursiveProcess(
@@ -208,7 +209,7 @@ class XmlLocation extends AbstractLocation
         $ns = null,
         $nesting = 0
     ) {
-        $result = [];
+        $result = array();
         $children = $xml->children($ns, true);
 
         foreach ($children as $name => $child) {
@@ -218,7 +219,7 @@ class XmlLocation extends AbstractLocation
                 // A child element with this name exists so we're assuming
                 // that the node contains a list of elements
                 if (!is_array($result[$name])) {
-                    $result[$name] = [$result[$name]];
+                    $result[$name] = array($result[$name]);
                 }
                 $result[$name][] = static::xmlToArray($child, $ns, $nesting + 1);
             }
@@ -243,7 +244,7 @@ class XmlLocation extends AbstractLocation
 
         // Make sure we're always returning an array
         if ($nesting == 0 && !is_array($result)) {
-            $result = [$result];
+            $result = array($result);
         }
 
         return $result;

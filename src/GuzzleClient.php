@@ -44,14 +44,14 @@ class GuzzleClient extends AbstractClient implements GuzzleClientInterface
     public function __construct(
         ClientInterface $client,
         Description $description,
-        array $config = []
+        array $config = array()
     ) {
         parent::__construct($client, $config);
         $this->description = $description;
         $this->processConfig($config);
     }
 
-    public function getCommand($name, array $args = [])
+    public function getCommand($name, array $args = array())
     {
         $factory = $this->commandFactory;
         // Merge in default command options
@@ -81,7 +81,7 @@ class GuzzleClient extends AbstractClient implements GuzzleClientInterface
     {
         return function (
             $name,
-            array $args = [],
+            array $args = array(),
             GuzzleClientInterface $client
         ) use ($description) {
 
@@ -128,7 +128,7 @@ class GuzzleClient extends AbstractClient implements GuzzleClientInterface
         $emitter->attach(new PrepareRequest(
             isset($config['request_locations'])
                 ? $config['request_locations']
-                : []
+                : array()
         ));
 
         if (!isset($config['process']) ||
@@ -137,7 +137,7 @@ class GuzzleClient extends AbstractClient implements GuzzleClientInterface
             $emitter->attach(new ProcessResponse(
                 isset($config['response_locations'])
                     ? $config['response_locations']
-                    : []
+                    : array()
             ));
         }
     }

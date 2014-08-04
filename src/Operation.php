@@ -9,7 +9,7 @@ use GuzzleHttp\ToArrayInterface;
 class Operation implements ToArrayInterface
 {
     /** @var array Parameters */
-    private $parameters = [];
+    private $parameters = array();
 
     /** @var Parameter Additional parameters schema */
     private $additionalParameters;
@@ -49,9 +49,9 @@ class Operation implements ToArrayInterface
      * @param Description $description Service description used to resolve models if $ref tags are found
      * @throws \InvalidArgumentException
      */
-    public function __construct(array $config = [], Description $description)
+    public function __construct(array $config = array(), Description $description)
     {
-        static $defaults = [
+        static $defaults = array(
             'name' => '',
             'httpMethod' => '',
             'uri' => '',
@@ -60,11 +60,11 @@ class Operation implements ToArrayInterface
             'summary' => '',
             'documentationUrl' => null,
             'deprecated' => false,
-            'data' => [],
-            'parameters' => [],
+            'data' => array(),
+            'parameters' => array(),
             'additionalParameters' => null,
-            'errorResponses' => []
-        ];
+            'errorResponses' => array()
+		);
 
         $this->description = $description;
 
@@ -281,7 +281,7 @@ class Operation implements ToArrayInterface
             $param['name'] = $name;
             $this->parameters[$name] = new Parameter(
                 $param,
-                ['description' => $this->description]
+				array('description' => $this->description)
             );
         }
 
@@ -289,7 +289,7 @@ class Operation implements ToArrayInterface
             if (is_array($this->config['additionalParameters'])) {
                 $this->additionalParameters = new Parameter(
                     $this->config['additionalParameters'],
-                    ['description' => $this->description]
+					array('description' => $this->description)
                 );
             } else {
                 $this->additionalParameters = $this->config['additionalParameters'];

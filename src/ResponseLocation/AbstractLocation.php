@@ -26,7 +26,7 @@ abstract class AbstractLocation implements ResponseLocationInterface
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     ) {}
 
     public function after(
@@ -34,7 +34,7 @@ abstract class AbstractLocation implements ResponseLocationInterface
         ResponseInterface $response,
         Parameter $model,
         &$result,
-        array $context = []
+        array $context = array()
     ) {}
 
     public function visit(
@@ -42,6 +42,6 @@ abstract class AbstractLocation implements ResponseLocationInterface
         ResponseInterface $response,
         Parameter $param,
         &$result,
-        array $context = []
+        array $context = array()
     ) {}
 }

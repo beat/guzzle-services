@@ -10,10 +10,10 @@ use GuzzleHttp\Url;
 class Description
 {
     /** @var array Array of {@see OperationInterface} objects */
-    private $operations = [];
+    private $operations = array();
 
     /** @var array Array of API models */
-    private $models = [];
+    private $models = array();
 
     /** @var string Name of the API */
     private $name;
@@ -25,7 +25,7 @@ class Description
     private $description;
 
     /** @var array Any extra API data */
-    private $extraData = [];
+    private $extraData = array();
 
     /** @var string baseUrl/basePath */
     private $baseUrl;
@@ -40,11 +40,11 @@ class Description
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(array $config, array $options = [])
+    public function __construct(array $config, array $options = array())
     {
         // Keep a list of default keys used in service descriptions that is
         // later used to determine extra data keys.
-        static $defaultKeys = ['name', 'models', 'apiVersion', 'description'];
+        static $defaultKeys = array('name', 'models', 'apiVersion', 'description');
 
         // Pull in the default configuration values
         foreach ($defaultKeys as $key) {
@@ -164,7 +164,7 @@ class Description
         if (!($this->models[$id] instanceof Parameter)) {
             $this->models[$id] = new Parameter(
                 $this->models[$id],
-                ['description' => $this]
+                array('description' => $this)
             );
         }
 
@@ -178,7 +178,7 @@ class Description
      */
     public function getModels()
     {
-        $models = [];
+        $models = array();
         foreach ($this->models as $name => $model) {
             $models[$name] = $this->getModel($name);
         }

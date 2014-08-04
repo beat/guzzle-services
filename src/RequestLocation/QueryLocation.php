@@ -18,7 +18,8 @@ class QueryLocation extends AbstractLocation
         Parameter $param,
         array $context
     ) {
-        $request->getQuery()[$param->getWireName()] = $this->prepareValue(
+        $query = $request->getQuery();
+		$query[$param->getWireName()] = $this->prepareValue(
             $command[$param->getName()],
             $param
         );
@@ -34,7 +35,8 @@ class QueryLocation extends AbstractLocation
         if ($additional && $additional->getLocation() == $this->locationName) {
             foreach ($command->toArray() as $key => $value) {
                 if (!$operation->hasParam($key)) {
-                    $request->getQuery()[$key] = $this->prepareValue(
+                    $query = $request->getQuery();
+					$query[$key] = $this->prepareValue(
                         $value,
                         $additional
                     );

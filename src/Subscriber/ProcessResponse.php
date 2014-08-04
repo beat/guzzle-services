@@ -37,18 +37,18 @@ class ProcessResponse implements SubscriberInterface
     /**
      * @param ResponseLocationInterface[] $responseLocations Extra response locations
      */
-    public function __construct(array $responseLocations = [])
+    public function __construct(array $responseLocations = array())
     {
         static $defaultResponseLocations;
         if (!$defaultResponseLocations) {
-            $defaultResponseLocations = [
+            $defaultResponseLocations = array(
                 'body'         => new BodyLocation('body'),
                 'header'       => new HeaderLocation('header'),
                 'reasonPhrase' => new ReasonPhraseLocation('reasonPhrase'),
                 'statusCode'   => new StatusCodeLocation('statusCode'),
                 'xml'          => new XmlLocation('xml'),
                 'json'         => new JsonLocation('json')
-            ];
+			);
         }
 
         $this->responseLocations = $responseLocations + $defaultResponseLocations;
@@ -56,7 +56,7 @@ class ProcessResponse implements SubscriberInterface
 
     public function getEvents()
     {
-        return ['process' => ['onProcess']];
+        return array('process' => array('onProcess'));
     }
 
     public function onProcess(ProcessEvent $event)
@@ -82,8 +82,8 @@ class ProcessResponse implements SubscriberInterface
 
     protected function visit(Parameter $model, ProcessEvent $event)
     {
-        $result = [];
-        $context = ['client' => $event->getClient(), 'visitors' => []];
+        $result = array();
+        $context = array('client' => $event->getClient(), 'visitors' => array());
         $command = $event->getCommand();
         $response = $event->getResponse();
 
@@ -97,7 +97,8 @@ class ProcessResponse implements SubscriberInterface
 
         // Call the after() method of each found visitor
         foreach ($context['visitors'] as $visitor) {
-            $visitor->after($command, $response, $model, $result, $context);
+			/** @noinspection PhpUndefinedMethodInspection */
+			$visitor->after($command, $response, $model, $result, $context);
         }
 
         return $result;

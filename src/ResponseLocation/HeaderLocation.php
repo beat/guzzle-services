@@ -16,7 +16,7 @@ class HeaderLocation extends AbstractLocation
         ResponseInterface $response,
         Parameter $param,
         &$result,
-        array $context = []
+        array $context = array()
     ) {
         // Retrieving a single header by name
         $name = $param->getName();

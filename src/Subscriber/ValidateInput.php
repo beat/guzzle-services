@@ -23,7 +23,7 @@ class ValidateInput implements SubscriberInterface
 
     public function getEvents()
     {
-        return ['prepare' => ['onPrepare']];
+        return array('prepare' => array('onPrepare'));
     }
 
     public function onPrepare(PrepareEvent $event)
@@ -34,7 +34,7 @@ class ValidateInput implements SubscriberInterface
                 . ' is not a GuzzleHttp\\Command\\Guzzle\\GuzzleCommandInterface');
         }
 
-        $errors = [];
+        $errors = array();
         $operation = $command->getOperation();
         foreach ($operation->getParams() as $name => $schema) {
             $value = $command[$name];
