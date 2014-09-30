@@ -57,7 +57,7 @@ class GuzzleClient extends AbstractClient implements GuzzleClientInterface
         // Merge in default command options
         $args += $this->getConfig('defaults');
 
-        if (!($command = $factory($name, $args, $this))) {
+        if (!($command = call_user_func_array($factory, array($name, $args, $this)))) {
             throw new \InvalidArgumentException("No operation found named $name");
         }
 
