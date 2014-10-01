@@ -16,10 +16,14 @@ Provides an implementation of the Guzzle Command library that uses Guzzle servic
         'operations' => [
             'testing' => [
                 'httpMethod' => 'GET',
-                'uri' => '/get',
+                'uri' => '/get/{foo}',
                 'responseModel' => 'getResponse',
                 'parameters' => [
                     'foo' => [
+                        'type' => 'string',
+                        'location' => 'uri'
+                    ],
+                    'bar' => [
                         'type' => 'string',
                         'location' => 'query'
                     ]
@@ -52,7 +56,7 @@ composer.json:
 
     {
         "require": {
-            "guzzlehttp/guzzle-services": "0.1.0"
+            "guzzlehttp/guzzle-services": "0.3.*"
         }
     }
 
