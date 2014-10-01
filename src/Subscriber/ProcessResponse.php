@@ -76,7 +76,7 @@ class ProcessResponse implements SubscriberInterface
 
         // Add a default Model as the result if no matching schema was found.
         if (!($modelName = $operation->getResponseModel())) {
-            $event->setResult(new Model([]));
+            $event->setResult(new Model(array()));
             return;
         }
 
